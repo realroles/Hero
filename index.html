@@ -2,61 +2,92 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Age Calculator</title>
-<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1961377621744671"
-     crossorigin="anonymous"></script>
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Real Role : YouTube Tag Generator</title>
   <style>
-    body { background: #e3f2fd; font-family: Arial, sans-serif; }
-    .container { max-width: 370px; margin: 60px auto; background: #fff; border-radius: 13px; box-shadow: 0 4px 24px #bbb; padding: 28px 18px; text-align: center;}
-    h2 { color: #1976d2; }
-    input[type="date"] { padding: 10px; border-radius: 7px; border: 1px solid #bbb; font-size: 16px; margin: 16px 0; width: 85%; }
-    button { background: #1976d2; color: #fff; border: none; border-radius: 7px; font-size: 16px; padding: 10px 24px; cursor: pointer;}
-    button:active { background: #1250a1; }
-    .result { margin-top: 18px; font-size: 17px;}
-    .error { color: #d32f2f; font-size: 15px; }
-    label { float: left; margin-left: 19px; font-size: 15px; color: #333; }
+    body { font-family: Arial, sans-serif; background: #f4f4f4; }
+    .container {
+      width: 350px;
+      margin: 60px auto;
+      padding: 24px;
+      background: #fff;
+      border-radius: 8px;
+      box-shadow: 0 0 12px #bbb;
+    }
+    h2 { text-align: center; color: #e52d27; }
+    input[type="text"] {
+      width: 90%;
+      padding: 10px;
+      margin-bottom: 10px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+    }
+    button {
+      padding: 10px 16px;
+      background: #e52d27;
+      color: #fff;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+    #tags {
+      margin-top: 16px;
+      min-height: 40px;
+      background: #f9f9f9;
+      border: 1px solid #eee;
+      border-radius: 4px;
+      padding: 10px;
+      font-size: 1em;
+    }
+    .copy-btn {
+      background: #008CBA;
+      margin-top: 8px;
+      margin-bottom: 6px;
+    }
   </style>
 </head>
 <body>
   <div class="container">
-    <h2>Age Calculator</h2>
-    <label for="dob">Enter your Date of Birth:</label><br>
-    <input type="date" id="dob"><br>
-    <button onclick="calcAge()">Calculate Age</button>
-    <div class="result" id="result"></div>
+    <h2>Real Role : YouTube Tag Generator</h2>
+    <input type="text" id="keyword" placeholder="Enter Youtube Content" />
+    <button onclick="generateTags()">Generate Tags</button>
+    <div id="tags"></div>
+    <button class="copy-btn" onclick="copyTags()">Copy Tags</button>
   </div>
   <script>
-    function calcAge() {
-      const dobInput = document.getElementById("dob").value;
-      const result = document.getElementById("result");
-      if (!dobInput) {
-        result.innerHTML = '<span class="error">Please enter your date of birth.</span>';
+    function generateTags() {
+      let keyword = document.getElementById('keyword').value.trim();
+      let tagsDiv = document.getElementById('tags');
+      if (!keyword) {
+        tagsDiv.innerHTML = "<em>Kripya pehle koi topic likhen.</em>";
         return;
       }
-      const dob = new Date(dobInput);
-      const today = new Date();
-      if (dob > today) {
-        result.innerHTML = '<span class="error">Date of birth cannot be in the future.</span>';
-        return;
+      // Basic tag suggestions using keyword variations
+      let base = keyword.toLowerCase();
+      let tags = [
+        base,
+        base + " tutorial",
+        base + " in hindi",
+        "how to " + base,
+        base + " tips",
+        base + " tricks",
+        "best " + base,
+        base + " guide",
+        base + " explained",
+        base + " for beginners",
+        base + " 2025",
+        "learn " + base,
+        base.replace(" ", ""),
+        base.split(" ").reverse().join(" "),
+        base + " kaise karein"
+      ];
+      tagsDiv.innerText = tags.join(", ");
+    }
+    function copyTags() {
+      let tags = document.getElementById('tags').innerText;
+      if (tags) {
+        navigator.clipboard.writeText(tags);
+        alert("Tags copied!");
       }
-
-      let years = today.getFullYear() - dob.getFullYear();
-      let months = today.getMonth() - dob.getMonth();
-      let days = today.getDate() - dob.getDate();
-
-      if (days < 0) {
-        months -= 1;
-        // get days in previous month
-        const prevMonth = new Date(today.getFullYear(), today.getMonth(), 0);
-        days += prevMonth.getDate();
-      }
-      if (months < 0) {
-        years -= 1;
-        months += 12;
-      }
-
-      result.innerHTML = `Your Age: <b>${years}</b> years, <b>${months}</b> months, <b>${days}</b> days.`;
     }
   </script>
 </body>
