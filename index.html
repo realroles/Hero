@@ -1,95 +1,87 @@
-<!-- index.html --><!DOCTYPE html><html lang="en">
+<!DOCTYPE html>
+<html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Real Role - Video Translator</title>
+  <title>🎬 Real Role - Video Translator</title>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
 </head>
-<body class="bg-light">
+<body>
   <div class="container py-5">
-    <h2 class="text-center mb-4">🎬 Real Role - Video Translator</h2><form id="uploadForm" enctype="multipart/form-data">
-  <div class="mb-3">
-    <label for="video" class="form-label">Upload Video</label>
-    <input class="form-control" type="file" name="video" id="video" required>
+    <h2 class="text-center mb-4">🎬 Real Role - Video Translator</h2>
+    
+    <form id="uploadForm" enctype="multipart/form-data" class="card p-4 shadow rounded-4">
+      <div class="mb-3">
+        <label for="video" class="form-label">Upload Video</label>
+        <input class="form-control" type="file" name="video" id="video" accept="video/*" required>
+      </div>
+
+      <div class="mb-3">
+        <label for="languageSearch" class="form-label">Search Language</label>
+        <input class="form-control" id="languageSearch" placeholder="Type to search language...">
+      </div>
+
+      <div class="mb-3">
+        <label for="languageSelect" class="form-label">Select Language</label>
+        <select class="form-select" name="language" id="languageSelect" required></select>
+      </div>
+
+      <button type="submit" class="btn btn-primary w-100">
+        🎧 Translate & Download
+      </button>
+    </form>
+
+    <div id="downloadSection" class="mt-4 text-center" style="display: none;">
+      <a id="downloadLink" class="btn btn-success w-100" href="#" download>
+        ⬇️ Download Translated Video
+      </a>
+    </div>
   </div>
-  <div class="mb-3">
-    <label for="language" class="form-label">Select Language</label>
-    <input class="form-control" id="languageSearch" placeholder="Search language...">
-    <select class="form-select mt-2" name="language" id="languageSelect" required></select>
-  </div>
-  <button type="submit" class="btn btn-primary w-100">Translate & Download</button>
-</form>
 
-<div id="downloadSection" class="mt-4" style="display: none;">
-  <a id="downloadLink" class="btn btn-success w-100" href="#" download>Download Translated Video</a>
-</div>
+  <script>
+    const languages = [
+      "Hindi", "English", "Spanish", "French", "German", "Chinese",
+      "Japanese", "Russian", "Arabic", "Portuguese"
+    ];
 
-  </div>  <script>
-    const languages = {
-      "af": "Afrikaans",
-      "ar": "Arabic",
-      "bn": "Bengali",
-      "zh-cn": "Chinese (Simplified)",
-      "en": "English",
-      "fr": "French",
-      "de": "German",
-      "hi": "Hindi",
-      "id": "Indonesian",
-      "it": "Italian",
-      "ja": "Japanese",
-      "ko": "Korean",
-      "mr": "Marathi",
-      "ne": "Nepali",
-      "pa": "Punjabi",
-      "pt": "Portuguese",
-      "ru": "Russian",
-      "es": "Spanish",
-      "ta": "Tamil",
-      "te": "Telugu",
-      "tr": "Turkish",
-      "ur": "Urdu",
-      "vi": "Vietnamese"
-    };
+    const select = document.getElementById('languageSelect');
+    const search = document.getElementById('languageSearch');
 
-    const langSelect = document.getElementById("languageSelect");
-    const langSearch = document.getElementById("languageSearch");
-
-    function populateLanguages() {
-      langSelect.innerHTML = "";
-      for (const [code, name] of Object.entries(languages)) {
-        const option = document.createElement("option");
-        option.value = code;
-        option.textContent = name;
-        langSelect.appendChild(option);
-      }
+    function populateLanguages(filtered = languages) {
+      select.innerHTML = '';
+      filtered.forEach(lang => {
+        const option = document.createElement('option');
+        option.value = lang;
+        option.textContent = lang;
+        select.appendChild(option);
+      });
     }
 
-    langSearch.addEventListener("input", () => {
-      const search = langSearch.value.toLowerCase();
-      langSelect.innerHTML = "";
-      for (const [code, name] of Object.entries(languages)) {
-        if (name.toLowerCase().includes(search)) {
-          const option = document.createElement("option");
-          option.value = code;
-          option.textContent = name;
-          langSelect.appendChild(option);
-        }
-      }
+    search.addEventListener('input', () => {
+      const filtered = languages.filter(lang => lang.toLowerCase().includes(search.value.toLowerCase()));
+      populateLanguages(filtered);
     });
 
-    document.getElementById("uploadForm").addEventListener("submit", async (e) => {
+    document.getElementById('uploadForm').addEventListener('submit', async function(e) {
       e.preventDefault();
-      const formData = new FormData(e.target);
-      const response = await fetch("/translate", {
-        method: "POST",
+      const formData = new FormData(this);
+
+      const res = await fetch('/api/translate', {
+        method: 'POST',
         body: formData
       });
-      const blob = await response.blob();
-      const downloadLink = document.getElementById("downloadLink");
-      downloadLink.href = URL.createObjectURL(blob);
-      document.getElementById("downloadSection").style.display = "block";
+
+      const data = await res.json();
+
+      if (data.success) {
+        document.getElementById('downloadLink').href = data.downloadUrl;
+        document.getElementById('downloadSection').style.display = 'block';
+      } else {
+        alert('Translation failed!');
+      }
     });
 
     populateLanguages();
-  </script></body>
+  </script>
+</body>
 </html>
