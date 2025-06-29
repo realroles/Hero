@@ -1,4 +1,3 @@
-
 require('dotenv').config();
 const express = require('express');
 const multer = require('multer');
@@ -8,13 +7,14 @@ const path = require('path');
 const { execSync } = require('child_process');
 const { OpenAI } = require('openai');
 const textToSpeech = require('@google-cloud/text-to-speech');
+const sanitize = require('sanitize-filename');
 
 const app = express();
 app.use(cors());
 app.use(express.json());
 app.use(express.static('translated'));
 
-// Create folders if not exist
+// Create folders
 ['uploads', 'translated'].forEach(dir => {
   if (!fs.existsSync(dir)) fs.mkdirSync(dir);
 });
@@ -23,61 +23,60 @@ const upload = multer({ dest: 'uploads/' });
 const openai = new OpenAI({ apiKey: process.env.OPENAI_API_KEY });
 const ttsClient = new textToSpeech.TextToSpeechClient();
 
-app.post('/api/translate', upload.single('video'), async (req, res) => {
-  try {
-    const { language } = req.body;
-    const vid = req.file.path;
-    const audioIn = `uploads/${req.file.filename}.wav`;
-    const audioOut = `translated/${req.file.filename}-dub.mp3`;
-    const finalVid = `translated/${req.file.filename}-final.mp4`;
+const BASE_URL = process.env.BASE_URL || `http://localhost:${process.env.PORT || 3001}`;
 
-    // Step 1: Extract audio from uploaded video
-    execSync(`ffmpeg -i ${vid} -vn -acodec pcm_s16le -ar 44100 -ac 2 ${audioIn}`);
+// 📥 Extract audio from video
+function extractAudio(videoPath, outputPath) {
+  execSync(`ffmpeg -i "${videoPath}" -vn -acodec pcm_s16le -ar 44100 -ac 2 "${outputPath}"`);
+}
 
-    // Step 2: Transcribe original audio using Whisper
-    const transRes = await openai.audio.transcriptions.create({
-      file: fs.createReadStream(audioIn),
-      model: "whisper-1"
-    });
-    const originalText = transRes.text;
+// 📄 Transcribe audio using Whisper
+async function transcribeAudio(audioPath) {
+  const response = await openai.audio.transcriptions.create({
+    file: fs.createReadStream(audioPath),
+    model: "whisper-1"
+  });
+  return response.text;
+}
 
-    // Step 3: Translate text using ChatGPT
-    const translationRes = await openai.chat.completions.create({
-      model: "gpt-3.5-turbo",
-      messages: [
-        { role: "system", content: `Translate the following text to ${language}:` },
-        { role: "user", content: originalText }
-      ]
-    });
-    const translatedText = translationRes.choices[0].message.content;
+// 🌍 Translate text using GPT
+async function translateText(text, language) {
+  const res = await openai.chat.completions.create({
+    model: "gpt-3.5-turbo",
+    messages: [
+      { role: "system", content: `Translate the following text to ${language}:` },
+      { role: "user", content: text }
+    ]
+  });
+  return res.choices[0].message.content;
+}
 
-    // Step 4: Convert translated text to speech using Google TTS
-    const [ttsRes] = await ttsClient.synthesizeSpeech({
-      input: { text: translatedText },
-      voice: {
-        languageCode: getLanguageCode(language),
-        ssmlGender: 'NEUTRAL'
-      },
-      audioConfig: { audioEncoding: 'MP3' }
-    });
-    fs.writeFileSync(audioOut, ttsRes.audioContent, 'binary');
+// 🔊 Convert text to speech
+async function synthesizeSpeech(text, language, outputPath) {
+  const [response] = await ttsClient.synthesizeSpeech({
+    input: { text },
+    voice: {
+      languageCode: getLanguageCode(language),
+      ssmlGender: 'NEUTRAL'
+    },
+    audioConfig: { audioEncoding: 'MP3' }
+  });
+  fs.writeFileSync(outputPath, response.audioContent, 'binary');
+}
 
-    // Step 5: Merge dubbed audio back into original video
-    execSync(`ffmpeg -i ${vid} -i ${audioOut} -c:v copy -map 0:v:0 -map 1:a:0 -shortest ${finalVid}`);
+// 🎞️ Merge audio with original video
+function mergeAudioWithVideo(videoPath, audioPath, outputPath) {
+  execSync(`ffmpeg -i "${videoPath}" -i "${audioPath}" -c:v copy -map 0:v:0 -map 1:a:0 -shortest "${outputPath}"`);
+}
 
-    // Step 6: Clean temp files
-    fs.unlinkSync(audioIn);
-    fs.unlinkSync(vid);
+// 🗑 Cleanup files
+function cleanup(...paths) {
+  paths.forEach(p => {
+    if (fs.existsSync(p)) fs.unlinkSync(p);
+  });
+}
 
-    const url = `https://realrole-api.onrender.com/${path.basename(finalVid)}`;
-    res.json({ success: true, downloadUrl: url });
-
-  } catch (err) {
-    console.error(err);
-    res.status(500).json({ success: false, message: err.message });
-  }
-});
-
+// 🌐 Language map
 function getLanguageCode(language) {
   const map = {
     Hindi: 'hi-IN',
@@ -98,7 +97,34 @@ function getLanguageCode(language) {
   return map[language] || 'en-US';
 }
 
+// 📡 API Route
+app.post('/api/translate', upload.single('video'), async (req, res) => {
+  try {
+    const language = req.body.language;
+    const file = req.file;
+    const safeName = sanitize(file.filename);
+    const inputVideo = file.path;
+    const audioRaw = `uploads/${safeName}.wav`;
+    const dubbedAudio = `translated/${safeName}-dub.mp3`;
+    const finalVideo = `translated/${safeName}-final.mp4`;
+
+    extractAudio(inputVideo, audioRaw);
+    const originalText = await transcribeAudio(audioRaw);
+    const translatedText = await translateText(originalText, language);
+    await synthesizeSpeech(translatedText, language, dubbedAudio);
+    mergeAudioWithVideo(inputVideo, dubbedAudio, finalVideo);
+    cleanup(audioRaw, inputVideo, dubbedAudio);
+
+    const downloadUrl = `${BASE_URL}/${path.basename(finalVideo)}`;
+    res.json({ success: true, downloadUrl });
+  } catch (err) {
+    console.error('❌ Error:', err);
+    res.status(500).json({ success: false, message: err.message });
+  }
+});
+
+// 🔊 Start server
 const PORT = process.env.PORT || 3001;
 app.listen(PORT, () => {
-  console.log(`🚀 Server running on port ${PORT}`);
+  console.log(`🚀 Server running at http://localhost:${PORT}`);
 });
