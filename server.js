@@ -27,10 +27,9 @@ app.use('/api/translate', rateLimit({
   if (!fs.existsSync(dir)) fs.mkdirSync(dir);
 });
 
-// ✅ File Upload (max 25MB)
+// ✅ File Upload (NO size limit now)
 const upload = multer({
-  dest: 'uploads/',
-  limits: { fileSize: 25 * 1024 * 1024 } // 25 MB
+  dest: 'uploads/'
 });
 
 const openai = new OpenAI({ apiKey: process.env.OPENAI_API_KEY });
