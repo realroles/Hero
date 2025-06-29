@@ -1,3 +1,4 @@
+
 require('dotenv').config();
 const express = require('express');
 const multer = require('multer');
@@ -68,7 +69,7 @@ app.post('/api/translate', upload.single('video'), async (req, res) => {
     fs.unlinkSync(audioIn);
     fs.unlinkSync(vid);
 
-    const url = `${req.protocol}://${req.get('host')}/${path.basename(finalVid)}`;
+    const url = `https://realrole-api.onrender.com/${path.basename(finalVid)}`;
     res.json({ success: true, downloadUrl: url });
 
   } catch (err) {
@@ -77,7 +78,6 @@ app.post('/api/translate', upload.single('video'), async (req, res) => {
   }
 });
 
-// Language code mapping for Google TTS
 function getLanguageCode(language) {
   const map = {
     Hindi: 'hi-IN',
@@ -85,15 +85,20 @@ function getLanguageCode(language) {
     Spanish: 'es-ES',
     French: 'fr-FR',
     German: 'de-DE',
+    Chinese: 'cmn-CN',
+    Japanese: 'ja-JP',
+    Russian: 'ru-RU',
+    Arabic: 'ar-XA',
+    Portuguese: 'pt-PT',
     Tamil: 'ta-IN',
     Telugu: 'te-IN',
     Bengali: 'bn-IN',
     Marathi: 'mr-IN'
-    // आप अपनी ज़रूरत के हिसाब से और भाषाएं जोड़ सकते हैं
   };
   return map[language] || 'en-US';
 }
 
-app.listen(process.env.PORT || 3001, () => {
-  console.log('🚀 Server running on port 3001');
+const PORT = process.env.PORT || 3001;
+app.listen(PORT, () => {
+  console.log(`🚀 Server running on port ${PORT}`);
 });
