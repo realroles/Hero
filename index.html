@@ -1,74 +1,97 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title> Real Role : Video Translator</title>
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <!-- Basic Meta -->
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="author" content="Real Role Team" />
+  <meta name="robots" content="index, follow" />
+  <meta name="googlebot" content="index, follow" />
+  <meta name="revisit-after" content="1 days" />
+  <meta name="language" content="English, Hindi" />
+  <meta name="distribution" content="global" />
+  <meta name="theme-color" content="#0d6efd" />
+  <meta name="mobile-web-app-capable" content="yes" />
+  <link rel="canonical" href="https://realrole.store/video-downloader" />
+
+  <!-- Title & Description -->
+  <title>Real Role : Video Downloader</title>
+  <meta name="description" content="Download videos instantly from any link using Real Role Video Downloader. Fast, free, mobile-friendly & 100% secure." />
+
+  <!-- Open Graph (Facebook, LinkedIn) -->
+  <meta property="og:title" content="Real Role : Video Downloader" />
+  <meta property="og:description" content="Download videos from any platform instantly. Safe, secure and fast." />
+  <meta property="og:image" content="https://realrole.store/thumbnail.png" />
+  <meta property="og:url" content="https://realrole.store/video-downloader" />
+  <meta property="og:type" content="website" />
+  <meta property="og:locale" content="en_US" />
+
+  <!-- Twitter Cards -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:site" content="@realrole" />
+  <meta name="twitter:title" content="Real Role : Video Downloader" />
+  <meta name="twitter:description" content="Instant video download from any link. Fast & free!" />
+  <meta name="twitter:image" content="https://realrole.store/thumbnail.png" />
+
+  <!-- Keywords (Multilingual: English + Hindi + Future Search) -->
+  <meta name="keywords" content="
+    video downloader, video download website, HD video download, free video downloader, 
+    mobile video download, Real Role downloader, online video downloader tool, 
+    Instagram video download, Facebook video download, Twitter video download, 
+    WhatsApp video save, best video downloader site, fast video downloader, 
+    बिना वॉटरमार्क वीडियो डाउनलोड, इंस्टाग्राम वीडियो डाउनलोड, ट्विटर वीडियो डाउनलोड, 
+    यूट्यूब वीडियो डाउनलोड, फेसबुक वीडियो सेव, वीडियो डाउनलोडर टूल्स, डाउनलोड करें, 
+    social media se video download kaise kare, 
+    save videos to gallery, reels downloader, shorts downloader, mp4 video saver, 
+    2025 video downloader app, real role site, termux downloader, snaptube alternative
+  " />
+
+  <!-- Bootstrap CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
+
+  <!-- Extra SEO Meta Loop (1000+ Tags for future-proofing) -->
+  <script>
+    for(let i=1; i<=980; i++){
+      const meta = document.createElement('meta');
+      meta.name = `realrole-seo-tag-${i}`;
+      meta.content = `Real Role Video Downloader - Tag ${i}`;
+      document.head.appendChild(meta);
+    }
+  </script>
 </head>
+
 <body>
   <div class="container py-5">
-    <h2 class="text-center mb-4"> Real Role : Video Translator</h2>
-    
-    <form id="uploadForm" enctype="multipart/form-data" class="card p-4 shadow rounded-4">
-      <div class="mb-3">
-        <label for="video" class="form-label">Upload Video</label>
-        <input class="form-control" type="file" name="video" id="video" accept="video/*" required>
-      </div>
+    <h1 class="text-center mb-4">Real Role : Video Downloader</h1>
 
+    <form id="downloadForm" class="card p-4 shadow rounded-4">
       <div class="mb-3">
-        <label for="languageSearch" class="form-label">Search Language</label>
-        <input class="form-control" id="languageSearch" placeholder="Type to search language...">
-      </div>
-
-      <div class="mb-3">
-        <label for="languageSelect" class="form-label">Select Language</label>
-        <select class="form-select" name="language" id="languageSelect" required></select>
+        <label for="videoUrl" class="form-label">Paste Video URL</label>
+        <input type="url" class="form-control" id="videoUrl" name="url" placeholder="Video Link" required />
       </div>
 
       <button type="submit" class="btn btn-primary w-100">
-        Download Video
+         Download Video
       </button>
     </form>
 
     <div id="downloadSection" class="mt-4 text-center" style="display: none;">
       <a id="downloadLink" class="btn btn-success w-100" href="#" download>
-        ⬇️ Download Translated Video
+        ⬇️ Click Here to Download
       </a>
     </div>
   </div>
 
   <script>
-    const languages = [
-      "Hindi", "English", "Spanish", "French", "German", "Chinese",
-      "Japanese", "Russian", "Arabic", "Portuguese"
-    ];
-
-    const select = document.getElementById('languageSelect');
-    const search = document.getElementById('languageSearch');
-
-    function populateLanguages(filtered = languages) {
-      select.innerHTML = '';
-      filtered.forEach(lang => {
-        const option = document.createElement('option');
-        option.value = lang;
-        option.textContent = lang;
-        select.appendChild(option);
-      });
-    }
-
-    search.addEventListener('input', () => {
-      const filtered = languages.filter(lang => lang.toLowerCase().includes(search.value.toLowerCase()));
-      populateLanguages(filtered);
-    });
-
-    document.getElementById('uploadForm').addEventListener('submit', async function(e) {
+    document.getElementById('downloadForm').addEventListener('submit', async function (e) {
       e.preventDefault();
-      const formData = new FormData(this);
+      const url = document.getElementById('videoUrl').value;
 
-      const res = await fetch('/api/translate', {
+      const res = await fetch('http://192.0.0.2:8080/api/download', {
         method: 'POST',
-        body: formData
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ url })
       });
 
       const data = await res.json();
@@ -77,11 +100,9 @@
         document.getElementById('downloadLink').href = data.downloadUrl;
         document.getElementById('downloadSection').style.display = 'block';
       } else {
-        alert('Translation failed!');
+        alert('Download failed! Please try another link.');
       }
     });
-
-    populateLanguages();
   </script>
 </body>
 </html>
