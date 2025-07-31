@@ -161,7 +161,7 @@
       e.preventDefault();
       const url = document.getElementById('videoUrl').value;
 
-      const res = await fetch('https://192.0.0.2:6424/api/download', {
+      const res = await fetch('http://192.0.0.2:6424/api/download', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ url })
