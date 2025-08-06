@@ -3,140 +3,300 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>Real Role : Video Downloader</title>
+  <title>Real Role : Photo to PDF</title>
+  
+  <!-- Favicon -->
+  <link rel="icon" href="IMG_20250805_083451.png" type="image/png">
 
-  <!-- Meta and SEO -->
-  <meta name="description" content="Download any video instantly using Real Role. Fast, free, mobile-friendly & 100% secure. Works on all social platforms except YouTube.">
-  <meta name="keywords" content="video downloader, video save tool, download status, insta reel download, facebook video save">
-  <meta name="robots" content="index, follow">
+  <!-- AdSense Auto Ads -->
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=pub-1961377621744671"
+     crossorigin="anonymous"></script>
+  <meta name="google-adsense-account" content="pub-1961377621744671">
+
+  <!-- SEO Meta Tags -->
+  <meta name="description" content="Convert your photos to a clean, ordered PDF book online. 100% free and unlimited – by RealRole.store">
+  <meta name="robots" content="index, follow" />
+  <meta name="author" content="RealRole" />
+  <meta name="keywords" content="photo to pdf, image to pdf, pdf from image, real role, realrole.store, create pdf from photos, jpg to pdf, png to pdf, online pdf creator, best pdf tool, free pdf maker, drag drop photo to pdf, offline image to pdf, scan to pdf, photo pdf converter, image file to pdf, pdf tools, online converter, real role tools, imagebook, a4 photo pdf, make pdf book, web photo to pdf, mobile pdf generator, photo merge to pdf, compressed pdf from photos, optimized pdf, pdf output quality, real role photo converter" />
 
   <!-- Open Graph -->
-  <meta property="og:title" content="Real Role - Video Downloader">
-  <meta property="og:description" content="Fast & free video download tool for Instagram, Facebook, WhatsApp and more.">
-  <meta property="og:type" content="website">
-  <meta property="og:url" content="https://realrole.store">
-  <meta property="og:image" content="https://realrole.store/logo.png">
-
-  <!-- Twitter -->
+  <meta property="og:title" content="Real Role: Convert Photos to PDF">
+  <meta property="og:description" content="Free & unlimited photo to PDF tool by RealRole.store">
+  <meta property="og:image" content="IMG_20250805_083451.png">
+  <meta property="og:url" content="https://realrole.store/">
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="Real Role - Video Downloader">
-  <meta name="twitter:description" content="Fast & free video download tool for Instagram, Facebook, WhatsApp and more.">
-  <meta name="twitter:image" content="https://realrole.store/logo.png">
-
-  <!-- JSON-LD -->
-  <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@type": "WebSite",
-    "name": "Real Role",
-    "url": "https://realrole.store"
-  }
-  </script>
-
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
 
   <style>
-    .info-section { display: none; margin-top: 20px; }
+    body {
+      font-family: sans-serif;
+      margin: 0;
+      padding: 0;
+      background: #f9f9f9;
+    }
+
+    header {
+      background-color: #1d72b8;
+      color: white;
+      padding: 1rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .menu-btn {
+      font-size: 24px;
+      cursor: pointer;
+      border: none;
+      background: none;
+      color: white;
+    }
+
+    #sidebar {
+      height: 100%;
+      width: 0;
+      position: fixed;
+      top: 0;
+      left: 0;
+      background-color: #333;
+      overflow-x: hidden;
+      transition: 0.3s;
+      padding-top: 60px;
+      z-index: 1000;
+    }
+
+    #sidebar h2 {
+      color: white;
+      text-align: center;
+      margin-bottom: 20px;
+    }
+
+    #sidebar a {
+      padding: 10px 20px;
+      text-decoration: none;
+      font-size: 18px;
+      color: #fff;
+      display: block;
+      transition: 0.2s;
+    }
+
+    #sidebar a:hover {
+      background-color: #575757;
+    }
+
+    #controls, #preview {
+      padding: 1rem;
+      text-align: center;
+    }
+
+    #controls input[type="file"], select, button {
+      margin: 0.5rem;
+      padding: 0.5rem;
+    }
+
+    button {
+      background: #1d72b8;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background: #0e4c8c;
+    }
+
+    .img-box {
+      display: inline-block;
+      margin: 10px;
+      border: 1px solid #ccc;
+      background: white;
+      width: 150px;
+    }
+
+    .img-box img {
+      width: 100%;
+      height: auto;
+    }
+
+    section {
+      padding: 2rem;
+      max-width: 900px;
+      margin: auto;
+    }
+
+    footer {
+      text-align: center;
+      padding: 1rem;
+      background-color: #1d72b8;
+      color: white;
+    }
+
+    @media(max-width: 600px) {
+      #controls {
+        flex-direction: column;
+      }
+    }
   </style>
 </head>
 <body>
-  <!-- Navigation Bar -->
-  <nav class="navbar navbar-expand-lg navbar-light bg-light sticky-top shadow-sm">
-    <div class="container">
-      <a class="navbar-brand fw-bold" href="#">Real Role</a>
-      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarInfo">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-      <div class="collapse navbar-collapse" id="navbarInfo">
-        <ul class="navbar-nav ms-auto">
-          <li class="nav-item"><a class="nav-link" href="#" onclick="showSection('about')">About Us</a></li>
-          <li class="nav-item"><a class="nav-link" href="#" onclick="showSection('contact')">Contact</a></li>
-          <li class="nav-item"><a class="nav-link" href="#" onclick="showSection('privacy')">Privacy Policy</a></li>
-          <li class="nav-item"><a class="nav-link" href="#" onclick="showSection('terms')">Terms</a></li>
-          <li class="nav-item"><a class="nav-link" href="#" onclick="showSection('disclaimer')">Disclaimer</a></li>
-        </ul>
-      </div>
-    </div>
-  </nav>
 
-  <div class="container py-4">
-    <h1 class="text-center mb-4">Video Downloader</h1>
+<header>
+  <button class="menu-btn" onclick="toggleSidebar()">☰</button>
+  <h1 style="margin: 0;">📸 Real Role: Photo to PDF</h1>
+</header>
 
-    <!-- Download Form -->
-    <form id="downloadForm">
-      <div class="mb-3">
-        <input type="url" class="form-control" id="videoUrl" placeholder="Paste video link here" required />
-      </div>
-      <button type="submit" class="btn btn-primary w-100">Download</button>
-    </form>
+<div id="sidebar">
+  <h2>Real Role</h2>
+  <a href="#about">About Us</a>
+  <a href="#contact">Contact Us</a>
+  <a href="#privacy">Privacy Policy</a>
+  <a href="#terms">Terms & Conditions</a>
+  <a href="#disclaimer">Disclaimer</a>
+  <a href="#blog">Blog</a>
+</div>
 
-    <!-- Download Section -->
-    <div id="downloadSection" class="mt-3" style="display:none;">
-      <a id="downloadLink" class="btn btn-success w-100" href="#" download>⬇️ Click here to Download</a>
-    </div>
+<!-- Main Tool -->
+<div id="controls">
+  <input type="file" id="imageUpload" multiple accept="image/*" />
+  <select id="pageSize">
+    <option value="a4">A4</option>
+    <option value="letter">Letter</option>
+  </select>
+  <select id="orientation">
+    <option value="portrait">Portrait</option>
+    <option value="landscape">Landscape</option>
+  </select>
+  <button onclick="generatePDF()">📄 Download PDF</button>
+</div>
 
-    <!-- Information Sections -->
-    <div id="about" class="info-section">
-      <h2>About Us</h2>
-      <p>We help you download videos from social platforms like Instagram, Facebook, WhatsApp & more.</p>
-    </div>
-    <div id="contact" class="info-section">
-      <h2>Contact</h2>
-      <p>Email us at: <a href="mailto:realroleu@gmail.com">realroleu@gmail.com</a></p>
-    </div>
-    <div id="privacy" class="info-section">
-      <h2>Privacy Policy</h2>
-      <p>We do not store user data. Your privacy is our priority.</p>
-    </div>
-    <div id="terms" class="info-section">
-      <h2>Terms & Conditions</h2>
-      <p>Use our service responsibly and for personal use only.</p>
-    </div>
-    <div id="disclaimer" class="info-section">
-      <h2>Disclaimer</h2>
-      <p>We do not host any media. All rights belong to their respective owners.</p>
-    </div>
-  </div>
+<div id="preview"></div>
 
-  <footer class="text-center mt-5 mb-3 text-muted">
-    &copy; <span id="year"></span> Real Role. All rights reserved.
-  </footer>
+<!-- Pages -->
+<section id="about">
+  <h2>About Us</h2>
+  <p>Real Role is a free online tool that helps you convert photos to PDF quickly, securely, and for free. Our mission is to empower users with easy-to-use PDF tools including converters, downloaders, and productivity helpers. Whether you're a student, freelancer, or professional — Real Role is your reliable digital partner. Our tools are optimized for speed, mobile usage, and privacy. No registration needed. We are proud to be part of the growing Indian tech ecosystem.</p>
+</section>
 
-  <script>
-    document.getElementById('year').textContent = new Date().getFullYear();
+<section id="contact">
+  <h2>Contact Us</h2>
+  <p>If you have questions, feedback, or want to work with us, feel free to reach out.</p>
+  <p>Email: <a href="mailto:realroleu@gmail.com">realroleu@gmail.com</a></p>
+</section>
 
-    function showSection(id) {
-      const sections = document.querySelectorAll('.info-section');
-      sections.forEach(sec => sec.style.display = 'none');
-      const target = document.getElementById(id);
-      if (target) {
-        target.style.display = 'block';
-        target.scrollIntoView({ behavior: 'smooth' });
+<section id="privacy">
+  <h2>Privacy Policy</h2>
+  <p>We take your privacy seriously. We do not store or share your uploaded files. All conversions happen in your browser. We don’t use cookies to track users personally. Our ads are served through Google AdSense which may use non-personally identifiable cookies for better ad experiences. By using our website, you consent to our privacy practices. You can read more on our official privacy page when published.</p>
+</section>
+
+<section id="terms">
+  <h2>Terms & Conditions</h2>
+  <p>By using Real Role tools, you agree to not misuse the service or attempt unauthorized access. Our tools are provided "as-is" without any guarantees. We are not liable for any damage, data loss, or issues arising from use of the tools. Use them responsibly. We may update terms anytime without notice. Continued usage implies agreement.</p>
+</section>
+
+<section id="disclaimer">
+  <h2>Disclaimer</h2>
+  <p>Real Role is an independent tool provider. We are not affiliated with any third-party platform whose content users may convert or download using our tools. All rights of respective content lie with their original creators or owners. We don’t encourage illegal usage of our tools. Use at your own risk and responsibility.</p>
+</section>
+
+<section id="blog">
+  <h2>Blog</h2>
+  <ul>
+    <li><strong>How to convert JPG to PDF in 1 minute?</strong> – Use Real Role's tool to upload multiple images and convert them instantly.</li>
+    <li><strong>Why compressing images before PDF matters?</strong> – To reduce size and maintain fast load time, always optimize your photos before upload.</li>
+    <li><strong>Can I use Real Role on mobile?</strong> – Yes, all our tools are 100% mobile friendly.</li>
+  </ul>
+</section>
+
+<footer>
+  &copy; 2025 Real Role. All rights reserved.
+</footer>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+<script>
+  function toggleSidebar() {
+    const sidebar = document.getElementById("sidebar");
+    sidebar.style.width = sidebar.style.width === "250px" ? "0" : "250px";
+  }
+
+  const preview = document.getElementById("preview");
+  const imageUpload = document.getElementById("imageUpload");
+  let imageFiles = [];
+
+  imageUpload.addEventListener("change", (e) => {
+    imageFiles = Array.from(e.target.files);
+    displayImages();
+  });
+
+  function displayImages() {
+    preview.innerHTML = "";
+    imageFiles.forEach((file, index) => {
+      const reader = new FileReader();
+      reader.onload = function (event) {
+        const imgBox = document.createElement("div");
+        imgBox.className = "img-box";
+        imgBox.setAttribute("draggable", "true");
+        imgBox.setAttribute("data-index", index);
+
+        const img = document.createElement("img");
+        img.src = event.target.result;
+
+        imgBox.appendChild(img);
+        preview.appendChild(imgBox);
+      };
+      reader.readAsDataURL(file);
+    });
+  }
+
+  async function generatePDF() {
+    const { jsPDF } = window.jspdf;
+    const doc = new jsPDF({
+      orientation: document.getElementById("orientation").value,
+      unit: "px",
+      format: document.getElementById("pageSize").value
+    });
+
+    for (let i = 0; i < imageFiles.length; i++) {
+      const file = imageFiles[i];
+      const imgData = await readFileAsDataURL(file);
+      const img = new Image();
+      img.src = imgData;
+      await new Promise(resolve => img.onload = resolve);
+
+      const pageWidth = doc.internal.pageSize.getWidth();
+      const pageHeight = doc.internal.pageSize.getHeight();
+
+      const imgAspect = img.width / img.height;
+      const pageAspect = pageWidth / pageHeight;
+
+      let imgWidth = pageWidth;
+      let imgHeight = pageHeight;
+
+      if (imgAspect > pageAspect) {
+        imgWidth = pageWidth;
+        imgHeight = imgWidth / imgAspect;
+      } else {
+        imgHeight = pageHeight;
+        imgWidth = imgHeight * imgAspect;
       }
+
+      const x = (pageWidth - imgWidth) / 2;
+      const y = (pageHeight - imgHeight) / 2;
+
+      doc.addImage(img, "JPEG", x, y, imgWidth, imgHeight);
+      if (i !== imageFiles.length - 1) doc.addPage();
     }
 
-    document.getElementById('downloadForm').addEventListener('submit', async function (e) {
-      e.preventDefault();
-      const url = document.getElementById('videoUrl').value;
+    doc.save("RealRole.pdf");
+  }
 
-      const res = await fetch('http://192.0.0.2:5376/api/download', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ url })
-      });
-
-      const data = await res.json();
-      if (data.success) {
-        const link = document.getElementById('downloadLink');
-        link.href = data.downloadUrl;
-        document.getElementById('downloadSection').style.display = 'block';
-      } else {
-        alert('Download failed. Try another link.');
-      }
+  function readFileAsDataURL(file) {
+    return new Promise((resolve) => {
+      const reader = new FileReader();
+      reader.onload = () => resolve(reader.result);
+      reader.readAsDataURL(file);
     });
-  </script>
+  }
+</script>
 
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
