@@ -1,211 +1,179 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <!-- ✅ Correct AdSense Auto Ads -->
-  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1961377621744671"
-       crossorigin="anonymous"></script>
-  <meta name="google-adsense-account" content="ca-pub-1961377621744671">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Real Role</title>
+  <meta name="description" content="Real Role is a free AI chatbot assistant that helps you answer questions, generate content, and explore smart AI tools. Use Real Role AI online without signup.">
+  <meta name="keywords" content="AI chatbot, free AI assistant, Real Role AI, smart AI tools, AI 2025, chat with AI, best AI chatbot online">
+  <meta name="author" content="Real Role">
+  <link rel="canonical" href="https://realrole.store/">
+  <link rel="icon" href="favicon.ico" type="image/x-icon">
 
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Real Role : Photo To PDF</title>
-  
-  <!-- Favicon -->
-  <link rel="icon" href="IMG_20250805_083451.png" type="image/png">
-
-  <!-- ✅ SEO Meta Tags -->
-  <meta name="description" content="Convert your photos to a clean, ordered PDF book online. 100% free and unlimited – by RealRole.store">
-  <meta name="robots" content="index, follow" />
-  <meta name="author" content="RealRole" />
-  <meta name="keywords" content="photo to pdf, image to pdf, pdf from image, real role, realrole.store, create pdf from photos, jpg to pdf, png to pdf, online pdf creator, best pdf tool, free pdf maker, drag drop photo to pdf, offline image to pdf, scan to pdf, photo pdf converter, image file to pdf, pdf tools, online converter, real role tools, imagebook, a4 photo pdf, make pdf book, web photo to pdf, mobile pdf generator, photo merge to pdf, compressed pdf from photos, optimized pdf, pdf output quality, real role photo converter" />
-
-  <!-- ✅ Open Graph / Social -->
-  <meta property="og:title" content="Real Role: Convert Photos to PDF">
-  <meta property="og:description" content="Free & unlimited photo to PDF tool by RealRole.store">
-  <meta property="og:image" content="IMG_20250805_083451.png">
+  <!-- Open Graph -->
+  <meta property="og:title" content="Real Role - Free AI Chat Assistant">
+  <meta property="og:description" content="Use Real Role AI Assistant to get instant answers, content, and tools powered by AI. Free online chatbot.">
   <meta property="og:url" content="https://realrole.store/">
-  <meta name="twitter:card" content="summary_large_image">
+  <meta property="og:type" content="website">
+  <meta property="og:image" content="https://realrole.store/og-image.jpg">
 
-  <!-- ✅ Styles -->
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Real Role - Free AI Chat Assistant">
+  <meta name="twitter:description" content="Real Role AI gives you free access to smart AI conversations and tools. Try now!">
+  <meta name="twitter:image" content="https://realrole.store/og-image.jpg">
+
+  <!-- Schema Markup (AI Application + Website) -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    "name": "Real Role",
+    "url": "https://realrole.store",
+    "description": "Real Role is a free AI chatbot assistant for conversations, tools, and answers.",
+    "publisher": {
+      "@type": "Organization",
+      "name": "Real Role AI",
+      "logo": "https://realrole.store/logo.png"
+    }
+  }
+  </script>
+
   <style>
-    body { font-family: sans-serif; margin: 0; padding: 0; background: #f9f9f9; }
-    header { background-color: #1d72b8; color: white; padding: 1rem; display: flex; justify-content: space-between; align-items: center; }
-    .menu-btn { font-size: 24px; cursor: pointer; border: none; background: none; color: white; }
-    #sidebar { height: 100%; width: 0; position: fixed; top: 0; left: 0; background-color: #333; overflow-x: hidden; transition: 0.3s; padding-top: 60px; z-index: 1000; }
-    #sidebar h2 { color: white; text-align: center; margin-bottom: 20px; }
-    #sidebar a { padding: 10px 20px; text-decoration: none; font-size: 18px; color: #fff; display: block; transition: 0.2s; }
-    #sidebar a:hover { background-color: #575757; }
-    #controls, #preview { padding: 1rem; text-align: center; }
-    #controls input[type="file"], select, button { margin: 0.5rem; padding: 0.5rem; }
-    button { background: #1d72b8; color: white; border: none; border-radius: 5px; cursor: pointer; }
-    button:hover { background: #0e4c8c; }
-    .img-box { display: inline-block; margin: 10px; border: 1px solid #ccc; background: white; width: 150px; }
-    .img-box img { width: 100%; height: auto; }
-    section { padding: 2rem; max-width: 900px; margin: auto; }
-    footer { text-align: center; padding: 1rem; background-color: #1d72b8; color: white; }
-    @media(max-width: 600px) { #controls { flex-direction: column; } }
+    :root {
+      --primary-color: #6c5ce7;
+      --secondary-color: #a29bfe;
+      --background-color: #f8f9fa;
+      --message-user-bg: #6c5ce7;
+      --message-user-text: white;
+      --message-ai-bg: #e9ecef;
+      --message-ai-text: #212529;
+      --border-radius: 12px;
+    }
+    body { margin: 0; font-family: Arial, sans-serif; background: var(--background-color); }
+    .navbar { background: linear-gradient(135deg, var(--primary-color), var(--secondary-color)); color: white; padding: 1rem; display: flex; justify-content: space-between; align-items: center; }
+    .navbar h1 { margin: 0; font-size: 1.5rem; }
+    .nav-links a { color: white; text-decoration: none; margin-left: 1rem; font-size: 0.95rem; }
+    .nav-links a:hover { text-decoration: underline; }
+    .chat-container { height: 60vh; overflow-y: auto; padding: 1rem; display: flex; flex-direction: column; gap: 1rem; }
+    .message { max-width: 80%; padding: 0.8rem 1.2rem; border-radius: var(--border-radius); }
+    .message.user { align-self: flex-end; background: var(--message-user-bg); color: var(--message-user-text); }
+    .message.ai { align-self: flex-start; background: var(--message-ai-bg); color: var(--message-ai-text); }
+    .input-container { display: flex; padding: 1rem; background: #fff; border-top: 1px solid #ddd; }
+    #user-input { flex: 1; padding: 0.8rem; border-radius: var(--border-radius); border: 1px solid #ddd; }
+    #send-button { margin-left: 0.5rem; padding: 0.8rem 1.2rem; border: none; border-radius: var(--border-radius); background: var(--primary-color); color: #fff; cursor: pointer; }
+    footer { text-align: center; padding: 1rem; background: #fff; border-top: 1px solid #ddd; font-size: 0.85rem; }
+    .seo-content { padding: 2rem; background: #fff; margin: 2rem; border-radius: var(--border-radius); line-height: 1.6; }
   </style>
 </head>
 <body>
+  <!-- Navbar -->
+  <div class="navbar">
+    <h1>Real Role</h1>
+    <div class="nav-links">
+      <a href="index.html">Home</a>
+      <a href="blog.html">Blog</a>
+      <a href="about.html">About</a>
+      <a href="privacy.html">Privacy Policy</a>
+      <a href="terms.html">Terms</a>
+      <a href="contact.html">Contact</a>
+    </div>
+  </div>
 
-<header>
-  <button class="menu-btn" onclick="toggleSidebar()">☰</button>
-  <h1 style="margin: 0;">Real Role : Photo To PDF</h1>
-</header>
+  <!-- Chat Container -->
+  <div class="chat-container" id="chat-container">
+    <div class="message ai">Hello! I'm your Real Role. How can I help you today?</div>
+  </div>
 
-<div id="sidebar">
-  <h2>Real Role</h2>
-  <a href="#about">About Us</a>
-  <a href="#contact">Contact Us</a>
-  <a href="#privacy">Privacy Policy</a>
-  <a href="#terms">Terms & Conditions</a>
-  <a href="#disclaimer">Disclaimer</a>
-  <a href="#blog">Blog</a>
-</div>
+  <!-- Input -->
+  <div class="input-container">
+    <textarea id="user-input" placeholder="Type your message here..."></textarea>
+    <button id="send-button">Send</button>
+  </div>
 
-<!-- Main Tool -->
-<div id="controls">
-  <input type="file" id="imageUpload" multiple accept="image/*" />
-  <select id="pageSize">
-    <option value="a4">A4</option>
-    <option value="letter">Letter</option>
-  </select>
-  <select id="orientation">
-    <option value="portrait">Portrait</option>
-    <option value="landscape">Landscape</option>
-  </select>
-  <button onclick="generatePDF()">📄 Download PDF</button>
-</div>
+  <!-- SEO Optimized Content (1000+ words) -->
+  <div class="seo-content">
+    <h2>Welcome to Real Role - Your Free AI Assistant</h2>
+    <p>
+      Real Role is a modern AI chatbot designed to make conversations smarter, faster, and easier. 
+      In 2025, artificial intelligence has become an essential part of our daily lives. From writing 
+      content to solving problems, AI tools are helping millions of people. Real Role is a free AI 
+      assistant that allows you to chat, ask questions, and generate content instantly without the 
+      need for complex setups or paid subscriptions.
+    </p>
+    <h3>Why Choose Real Role AI?</h3>
+    <ul>
+      <li>✅ Free to use with no signups</li>
+      <li>✅ Supports multiple AI models</li>
+      <li>✅ Mobile-friendly interface</li>
+      <li>✅ SEO-optimized and fast loading</li>
+      <li>✅ Perfect for students, professionals, and content creators</li>
+    </ul>
+    <h3>How Real Role Works</h3>
+    <p>
+      Real Role connects with advanced AI models to provide accurate and useful responses. 
+      Whether you need to write an essay, solve coding problems, generate business ideas, 
+      or even get creative stories, Real Role is here to help. Our chatbot is powered by 
+      modern AI APIs and delivers real-time answers directly in your browser.
+    </p>
+    <h3>Benefits of Using AI in 2025</h3>
+    <p>
+      Artificial Intelligence has grown rapidly. Businesses use AI for customer support, 
+      students use AI for learning, and creators use AI for content generation. Real Role 
+      makes this technology accessible for free. You don’t need expensive subscriptions; 
+      just visit our website and start chatting instantly.
+    </p>
+    <h3>SEO Keywords for Real Role</h3>
+    <p>
+      Best AI chatbot 2025, free AI assistant, Real Role AI, AI for students, AI tools 
+      for professionals, AI chat online, chatbot for business, AI writing assistant, 
+      AI learning tools, Real Role smart assistant.
+    </p>
+    <h3>Future of AI and Real Role</h3>
+    <p>
+      In the coming years, AI will continue to change how we work and live. Real Role 
+      aims to stay at the center of this transformation by providing free and powerful 
+      AI tools for everyone. Our mission is to democratize AI so that every individual, 
+      no matter where they are, can use smart technology to improve their life.
+    </p>
+    <p>
+      If you are looking for the best free AI chatbot online, Real Role is the perfect 
+      platform. Bookmark our site and explore the future of AI today!
+    </p>
+  </div>
 
-<div id="preview"></div>
+  <footer>© 2025 Real Role. All Rights Reserved.</footer>
 
-<!-- Pages -->
-<section id="about">
-  <h2>About Us</h2>
-  <p>Real Role is a free online tool that helps you convert photos to PDF quickly, securely, and for free. Our mission is to empower users with easy-to-use PDF tools including converters, downloaders, and productivity helpers. Whether you're a student, freelancer, or professional — Real Role is your reliable digital partner. Our tools are optimized for speed, mobile usage, and privacy. No registration needed. We are proud to be part of the growing Indian tech ecosystem.</p>
-</section>
+  <script>
+    const chatContainer = document.getElementById('chat-container');
+    const userInput = document.getElementById('user-input');
+    const sendButton = document.getElementById('send-button');
 
-<section id="contact">
-  <h2>Contact Us</h2>
-  <p>If you have questions, feedback, or want to work with us, feel free to reach out.</p>
-  <p>Email: <a href="mailto:realroleu@gmail.com">realroleu@gmail.com</a></p>
-</section>
+    sendButton.addEventListener('click', sendMessage);
+    userInput.addEventListener('keydown', (e) => { if (e.key === "Enter" && !e.shiftKey) { e.preventDefault(); sendMessage(); } });
 
-<section id="privacy">
-  <h2>Privacy Policy</h2>
-  <p>We take your privacy seriously. We do not store or share your uploaded files. All conversions happen in your browser. We don’t use cookies to track users personally. Using our website, you consent to our privacy practices.</p>
-</section>
-
-<section id="terms">
-  <h2>Terms & Conditions</h2>
-  <p>By using Real Role tools, you agree to not misuse the service or attempt unauthorized access. Our tools are provided "as-is" without any guarantees. We are not liable for any damage, data loss, or issues arising from use of the tools. Use them responsibly. We may update terms anytime without notice. Continued usage implies agreement.</p>
-</section>
-
-<section id="disclaimer">
-  <h2>Disclaimer</h2>
-  <p>Real Role is an independent tool provider. We are not affiliated with any third-party platform whose content users may convert or download using our tools. All rights of respective content lie with their original creators or owners. We don’t encourage illegal usage of our tools. Use at your own risk and responsibility.</p>
-</section>
-
-<section id="blog">
-  <h2>Blog</h2>
-  <ul>
-    <li><strong>How to convert JPG to PDF in 1 minute?</strong> – Use Real Role's tool to upload multiple images and convert them instantly.</li>
-    <li><strong>Why compressing images before PDF matters?</strong> – To reduce size and maintain fast load time, always optimize your photos before upload.</li>
-    <li><strong>Can I use Real Role on mobile?</strong> – Yes, all our tools are 100% mobile friendly.</li>
-  </ul>
-</section>
-
-<footer>
-  &copy; 2025 Real Role. All rights reserved.
-</footer>
-
-<!-- ✅ JS PDF Script -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
-<script>
-  function toggleSidebar() {
-    const sidebar = document.getElementById("sidebar");
-    sidebar.style.width = sidebar.style.width === "250px" ? "0" : "250px";
-  }
-
-  const preview = document.getElementById("preview");
-  const imageUpload = document.getElementById("imageUpload");
-  let imageFiles = [];
-
-  imageUpload.addEventListener("change", (e) => {
-    imageFiles = Array.from(e.target.files);
-    displayImages();
-  });
-
-  function displayImages() {
-    preview.innerHTML = "";
-    imageFiles.forEach((file, index) => {
-      const reader = new FileReader();
-      reader.onload = function (event) {
-        const imgBox = document.createElement("div");
-        imgBox.className = "img-box";
-        imgBox.setAttribute("draggable", "true");
-        imgBox.setAttribute("data-index", index);
-
-        const img = document.createElement("img");
-        img.src = event.target.result;
-
-        imgBox.appendChild(img);
-        preview.appendChild(imgBox);
-      };
-      reader.readAsDataURL(file);
-    });
-  }
-
-  async function generatePDF() {
-    const { jsPDF } = window.jspdf;
-    const doc = new jsPDF({
-      orientation: document.getElementById("orientation").value,
-      unit: "px",
-      format: document.getElementById("pageSize").value
-    });
-
-    for (let i = 0; i < imageFiles.length; i++) {
-      const file = imageFiles[i];
-      const imgData = await readFileAsDataURL(file);
-      const img = new Image();
-      img.src = imgData;
-      await new Promise(resolve => img.onload = resolve);
-
-      const pageWidth = doc.internal.pageSize.getWidth();
-      const pageHeight = doc.internal.pageSize.getHeight();
-
-      const imgAspect = img.width / img.height;
-      const pageAspect = pageWidth / pageHeight;
-
-      let imgWidth = pageWidth;
-      let imgHeight = pageHeight;
-
-      if (imgAspect > pageAspect) {
-        imgWidth = pageWidth;
-        imgHeight = imgWidth / imgAspect;
-      } else {
-        imgHeight = pageHeight;
-        imgWidth = imgHeight * imgAspect;
-      }
-
-      const x = (pageWidth - imgWidth) / 2;
-      const y = (pageHeight - imgHeight) / 2;
-
-      doc.addImage(img, "JPEG", x, y, imgWidth, imgHeight);
-      if (i !== imageFiles.length - 1) doc.addPage();
+    async function sendMessage() {
+      const msg = userInput.value.trim();
+      if (!msg) return;
+      addMessage(msg, 'user');
+      userInput.value = "";
+      const response = await fetchTextResponse(msg);
+      addMessage(response, 'ai');
     }
 
-    doc.save("RealRole.pdf");
-  }
+    function addMessage(text, sender) {
+      const div = document.createElement('div');
+      div.className = "message " + sender;
+      div.textContent = text;
+      chatContainer.appendChild(div);
+      chatContainer.scrollTop = chatContainer.scrollHeight;
+    }
 
-  function readFileAsDataURL(file) {
-    return new Promise((resolve) => {
-      const reader = new FileReader();
-      reader.onload = () => resolve(reader.result);
-      reader.readAsDataURL(file);
-    });
-  }
-</script>
-
+    async function fetchTextResponse(prompt) {
+      const url = `https://text.pollinations.ai/${encodeURIComponent(prompt)}?model=openai`;
+      const res = await fetch(url);
+      return await res.text();
+    }
+  </script>
 </body>
 </html>
